@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Shopee Cashback</title>
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#ee4d2d" />
+
+  <!-- iOS -->
+  <link rel="apple-touch-icon" href="icon.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      padding: 40px;
+    }
+
+    button {
+      padding: 16px 24px;
+      font-size: 18px;
+      background: #ee4d2d;
+      color: white;
+      border: none;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>🔥 Mua hàng Shopee giá rẻ</h1>
+  <p>Bấm vào đây để bắt đầu mua sắm</p>
+
+  <button onclick="goToShopee()">Mua ngay</button>
+
+  <script>
+    function getUserId() {
+      let uid = localStorage.getItem("uid");
+      if (!uid) {
+        uid = crypto.randomUUID();
+        localStorage.setItem("uid", uid);
+      }
+      return uid;
+    }
+
+    function goToShopee() {
+      const uid = getUserId();
+      const affLink = `https://s.shopee.vn/qf5MEQYtc?sub_id=${uid}`;
+
+      window.location.href = affLink;
+    }
+  </script>
+
+</body>
+
+</html>
