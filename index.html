@@ -3,40 +3,200 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>Shopee Cashback</title>
+  <title>Mua Shopee cùng Thức</title>
 
-  <!-- PWA -->
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#ee4d2d" />
-
-  <!-- iOS -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="apple-touch-icon" href="icon.png" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
-    body {
-      font-family: Arial;
-      text-align: center;
-      padding: 40px;
+    :root {
+      --orange: #ee4d2d;
+      --orange-dark: #c73b1f;
+      --orange-light: #ff7250;
+      --yellow: #ffd700;
+      --cream: #fff8f5;
+      --text: #2d1a14;
+      --text-soft: #7a5a4e;
+      --card-bg: #ffffff;
+      --radius: 24px;
     }
 
-    button {
-      padding: 16px 24px;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--cream);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden;
+    }
+
+    .bg-blobs { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+    .blob { position: absolute; border-radius: 50%; filter: blur(70px); opacity: 0.15; animation: drift 12s ease-in-out infinite alternate; }
+    .blob-1 { width: 460px; height: 460px; background: var(--orange); top: -100px; left: -120px; animation-duration: 14s; }
+    .blob-2 { width: 300px; height: 300px; background: var(--yellow); top: 45%; right: -80px; animation-duration: 10s; animation-delay: -4s; }
+    .blob-3 { width: 240px; height: 240px; background: var(--orange-light); bottom: 0; left: 25%; animation-duration: 16s; animation-delay: -2s; }
+    @keyframes drift {
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(28px, 18px) scale(1.08); }
+    }
+
+    .card {
+      position: relative; z-index: 1;
+      margin: 48px 16px 32px;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 36px 28px 32px;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 8px 48px rgba(238,77,45,0.13), 0 2px 8px rgba(0,0,0,0.05);
+      animation: slideUp 0.7s cubic-bezier(.22,1,.36,1) both;
+      text-align: center;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(36px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .avatar-wrap { margin-bottom: 14px; }
+    .avatar {
+      width: 76px; height: 76px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--orange), var(--orange-light));
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 36px;
+      box-shadow: 0 4px 20px rgba(238,77,45,0.3);
+      animation: popIn 0.6s cubic-bezier(.34,1.56,.64,1) 0.2s both;
+    }
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.5); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    .name-tag {
+      font-family: 'Baloo 2', sans-serif;
+      font-weight: 600; font-size: 14px;
+      color: var(--text-soft);
+      margin-bottom: 10px;
+    }
+
+    .headline {
+      font-family: 'Baloo 2', sans-serif;
+      font-weight: 800;
+      font-size: clamp(24px, 7vw, 32px);
+      color: var(--text);
+      line-height: 1.25;
+      margin-bottom: 10px;
+    }
+    .headline span {
+      background: linear-gradient(100deg, var(--orange), var(--orange-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .sub {
+      font-size: 14.5px; color: var(--text-soft); line-height: 1.65;
+      margin-bottom: 24px;
+    }
+
+    .tips { display: flex; flex-direction: column; gap: 9px; margin-bottom: 28px; text-align: left; }
+    .tip {
+      background: #fdf5f3;
+      border-radius: 12px;
+      padding: 11px 15px;
+      font-size: 13.5px;
+      color: var(--text);
+      font-weight: 600;
+      border-left: 3px solid var(--orange-light);
+      animation: slideUp 0.6s cubic-bezier(.22,1,.36,1) both;
+    }
+    .tip:nth-child(1) { animation-delay: 0.2s; }
+    .tip:nth-child(2) { animation-delay: 0.3s; }
+    .tip:nth-child(3) { animation-delay: 0.4s; }
+
+    .cta-wrap { position: relative; margin-bottom: 12px; }
+    .cta-btn {
+      width: 100%;
+      padding: 18px 24px;
       font-size: 18px;
-      background: #ee4d2d;
+      font-family: 'Baloo 2', sans-serif;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--orange) 0%, var(--orange-light) 100%);
       color: white;
       border: none;
-      border-radius: 8px;
+      border-radius: 14px;
+      cursor: pointer;
+      position: relative; overflow: hidden;
+      box-shadow: 0 6px 24px rgba(238,77,45,0.38);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .cta-btn::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+      border-radius: inherit;
+    }
+    .cta-btn:hover  { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(238,77,45,0.45); }
+    .cta-btn:active { transform: translateY(1px);  box-shadow: 0 4px 14px rgba(238,77,45,0.28); }
+    .btn-inner { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; gap: 10px; }
+    .arrow { font-size: 20px; transition: transform 0.2s ease; }
+    .cta-btn:hover .arrow { transform: translateX(4px); }
+
+    .cta-note {
+      font-size: 12px; color: var(--text-soft);
+      display: flex; align-items: center; justify-content: center; gap: 5px;
+    }
+
+    .footer {
+      position: relative; z-index: 1;
+      font-size: 11px; color: #c0a9a3;
+      padding-bottom: 32px; text-align: center;
     }
   </style>
 </head>
 
 <body>
 
-  <h1>🔥 Mua hàng Shopee giá rẻ</h1>
-  <p>Bấm vào đây để bắt đầu mua sắm</p>
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
 
-  <button onclick="goToShopee()">Mua ngay</button>
+  <div class="card">
+    <div class="avatar-wrap">
+      <div class="avatar">🧑‍💻</div>
+    </div>
+    <div class="name-tag">Thức gửi link nè 👋</div>
+
+    <h1 class="headline">Vào Shopee<br><span>săn Sale cùng Thức</span> 🛍️</h1>
+    <p class="sub">Vào Shopee qua link này mua bình thường nha — giá y chang, ship y chang, chỉ là Thức nhờ mua qua link thôi 😄</p>
+
+    <div class="tips">
+      <div class="tip">🏷️ Săn voucher trong app như bình thường</div>
+      <div class="tip">🚀 Freeship, flash sale vẫn áp dụng nhé</div>
+    </div>
+
+    <div class="cta-wrap">
+      <button class="cta-btn" onclick="goToShopee()">
+        <div class="btn-inner">
+          Vào Shopee mua thôi! <span class="arrow">→</span>
+        </div>
+      </button>
+    </div>
+    <!-- <p class="cta-note">💚 Giá y chang — link của Thức thôi nha</p> -->
+    <p class="cta-note">Made with ❤️ by Thức</p>
+  </div>
+
+  <!-- <p class="footer">Made with ❤️ by Thức</p> -->
 
   <script>
     function getUserId() {
@@ -51,11 +211,9 @@
     function goToShopee() {
       const uid = getUserId();
       const affLink = `https://s.shopee.vn/qf5MEQYtc?sub_id=${uid}`;
-
       window.location.href = affLink;
     }
   </script>
 
 </body>
-
 </html>
