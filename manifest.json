@@ -1,6 +1,6 @@
 {
-  "name": "Shopee Sale",
-  "short_name": "Shopee Sale",
+  "name": "Hoàn tiền Shopee",
+  "short_name": "Hoàn tiền Shopee",
   "start_url": "/mua-sam-hoan-tien/",
   "scope": "/mua-sam-hoan-tien/",
   "display": "standalone",
